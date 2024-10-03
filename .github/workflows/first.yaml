@@ -1,0 +1,24 @@
+name: Testing VMs  # Root key (workflow name)
+on:                # Trigger configuration (root key)
+  push:            # Subkey for events that trigger the action
+    branches:      
+      - main      # Branch name to listen to
+
+jobs:              # Required root key for defining jobs
+  deploy:          # Name of the job
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    runs-on: ubuntu-latest  # Define the machine to run this on
+
+    steps:         # List of steps in the job
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan 35.222.234.237 >> ~/.ssh/known_hosts
+
+      - name: Execute deployment script via SSH
+        run: ssh -i ~/.ssh/id_ed25519 samarth5854@35.222.234.237 'bash -s' < ./script.sh
