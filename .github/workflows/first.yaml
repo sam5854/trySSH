@@ -19,6 +19,9 @@ jobs:              # Required root key for defining jobs
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan 35.222.234.237 >> ~/.ssh/known_hosts
+      - name: List files for debugging
+        run: |
+          ls -R
 
       - name: Execute deployment script via SSH
         run: ssh -i ~/.ssh/id_ed25519 samarth5854@35.222.234.237 'bash -s' < ./scripts/script.sh
