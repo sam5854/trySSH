@@ -2,7 +2,7 @@ name: Testing VMs  # Root key (workflow name)
 on:                # Trigger configuration (root key)
   push:            # Subkey for events that trigger the action
     branches:      
-      - main      # Branch name to listen to
+      - master     # Branch name to listen to
 
 jobs:              # Required root key for defining jobs
   deploy:          # Name of the job
