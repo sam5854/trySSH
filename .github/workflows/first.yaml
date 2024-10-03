@@ -12,7 +12,12 @@ jobs:              # Required root key for defining jobs
 
     runs-on: ubuntu-latest  # Define the machine to run this on
 
-    steps:         # List of steps in the job
+    steps:   
+    
+    # Step to checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Set up SSH key
         run: |
           mkdir -p ~/.ssh
